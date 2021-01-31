@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <chrono>
 
 #include "BDAStar.h"
 
@@ -32,6 +33,22 @@ int main()
 		for (int i = 0; i < r; i++)
 			cout << pOutBuffer[i] << " ";
 		cout << endl;
+	}
+
+	// Memory Pool allocator test
+	{
+		const int count = 1000000;
+
+		auto t1 = chrono::high_resolution_clock::now();
+		
+		for (int i = 0; i < count; i++)
+			new Node(i-1, i+1, 1000);
+
+		auto t2 = chrono::high_resolution_clock::now();
+
+		auto duration = chrono::duration_cast<chrono::milliseconds>(t2 - t1);
+
+		cout << "Elapsed time: " << duration.count() << " ms\n";
 	}
 
 	return 0;
