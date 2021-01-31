@@ -44,7 +44,7 @@ int AStar::FindPath(const int nStartX, const int nStartY,
     opened.push(rStart);
     rStart.Open(true);
 
-    // The main loop where we check all Nodes that were marked to be visited
+    // The main loop where we check all nodes that were marked to be visited
     while (!opened.empty())
     {
         // Popping the front Node with the minimal F score
@@ -62,6 +62,7 @@ int AStar::FindPath(const int nStartX, const int nStartY,
             // Clearing before next use
             Clear();
 
+            // We have successfully found the path
             return result;
         }
 
@@ -144,8 +145,8 @@ Node& AStar::GetNode(int nIndex, int nX, int nY)
 
 int AStar::Heuristic(const Node& rNode, const int nTargetX, const int nTargetY)
 {
-    const int dx = std::abs(rNode.GetX() - nTargetX);
-    const int dy = std::abs(rNode.GetY() - nTargetY);
+    const int dx = abs(rNode.GetX() - nTargetX);
+    const int dy = abs(rNode.GetY() - nTargetY);
 
     return weight * heuristic(dx, dy);
 }

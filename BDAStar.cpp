@@ -48,7 +48,7 @@ int BDAStar::FindPath(const int nStartX, const int nStartY,
     openedBackward.push(rTarget);
     rTarget.Open(false);
 
-    // The main loop where we check all Nodes that were marked to be visited
+    // The main loop where we check all nodes that were marked to be visited
     while (!openedForward.empty() && !openedBackward.empty())
     {
         for (auto isForward : { true, false })
@@ -88,6 +88,7 @@ int BDAStar::FindPath(const int nStartX, const int nStartY,
                         // Clearing before next use
                         Clear();
 
+                        // We have successfully found the path
                         return result;
                     }
 
@@ -157,8 +158,8 @@ Node& BDAStar::GetNode(int nIndex, int nX, int nY)
 
 int BDAStar::Heuristic(const Node& rNode, const int nTargetX, const int nTargetY)
 {
-    const int dx = std::abs(rNode.GetX() - nTargetX);
-    const int dy = std::abs(rNode.GetY() - nTargetY);
+    const int dx = abs(rNode.GetX() - nTargetX);
+    const int dy = abs(rNode.GetY() - nTargetY);
 
     return weight * heuristic(dx, dy);
 }
@@ -192,7 +193,7 @@ const vector<int> BDAStar::BacktracePath(const Node& rTarget)
     return path;
 }
 
-int BDAStar::FillBuffer(const std::vector<int>& vPathToStart, const std::vector<int>& vPathToTarget, int* pOutBuffer, const int nOutBufferSize)
+int BDAStar::FillBuffer(const vector<int>& vPathToStart, const vector<int>& vPathToTarget, int* pOutBuffer, const int nOutBufferSize)
 {
     const int toStartSize = static_cast<int>(vPathToStart.size()) - 1;
     const int toTargetSize = static_cast<int>(vPathToTarget.size());
